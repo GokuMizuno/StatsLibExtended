@@ -1,9 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <float.h>
+#include "dispersion.h"
 
-#define EPS 1e-6
+double compare(double *a, double *b) {
+    return (*a - *b);
+}
 
 double nanmax(const double *x, size_t n) {
     double max_val = -DBL_MAX;
@@ -102,16 +101,16 @@ double quartile_coefficient_of_dispersion(const double *x, size_t n) {
     return (q3 - q1) / (q3 + q1);
 }
 
-double dispersion_ratio(const double *x, size_t n) {
-    double *non_zero_x = malloc(n * sizeof(double));
-    for (size_t i = 0; i < n; i++) {
-        non_zero_x[i] = (x[i] == 0) ? NAN : x[i];
-    }
-    double mean = nanmean(x, n);
-    double gmean = gmean(non_zero_x, n);
-    free(non_zero_x);
-    return mean / gmean;
-}
+// double dispersion_ratio(const double *x, size_t n) {
+//     double *non_zero_x = malloc(n * sizeof(double));
+//     for (size_t i = 0; i < n; i++) {
+//         non_zero_x[i] = (x[i] == 0) ? NAN : x[i];
+//     }
+//     double mean = nanmean(x, n);
+//     double gmean = gmean(non_zero_x, n);
+//     free(non_zero_x);
+//     return mean / gmean;
+// }
 
 double fisher_index_of_dispersion(const double *x, size_t n) {
     double mean = nanmean(x, n);

@@ -1,6 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include "kurtosis.h"
+
+double compare(double *a, double *b) {
+    return (*a - *b);
+}
 
 double comb(int n, int k) {
     if (k > n) return 0;

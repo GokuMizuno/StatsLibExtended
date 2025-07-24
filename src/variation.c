@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include "variation.h"
 
 int unique_counts(const double *x, int n, double **unique_vals) {
     int *counts = (int *)calloc(n, sizeof(int));
@@ -63,16 +61,6 @@ double range_vr(const double *x, int n) {
     return (double)min_count / max_count;
 }
 
-double gibbs_m1(const double *x, int n) {
-    double *unique_vals = (double *)malloc(n * sizeof(double));
-    int *counts = (int *)calloc(n, sizeof(int));
-    int unique_count = unique_counts(x, n, &unique_vals);
-    
-    double sum_freq_squared = 0.0;
-    for (int i = 0; i < unique_count; i++) {
-        double freq = (double)counts[i] / n;
-        sum_freq_squared += freq * freq;
-    }
 double b_index(const double *x, int n) {
     double *unique_vals = (double *)malloc(n * sizeof(double));
     int *counts = (int *)calloc(n, sizeof(int));
@@ -154,6 +142,17 @@ double mcintosh_d(const double *x, int n) {
     free(counts);
     return (n - sqrt(sum_squares)) / (n - sqrt(n));
 }
+
+double gibbs_m1(const double *x, int n) {
+    double *unique_vals = (double *)malloc(n * sizeof(double));
+    int *counts = (int *)calloc(n, sizeof(int));
+    int unique_count = unique_counts(x, n, &unique_vals);
+    
+    double sum_freq_squared = 0.0;
+    for (int i = 0; i < unique_count; i++) {
+        double freq = (double)counts[i] / n;
+        sum_freq_squared += freq * freq;
+    }
     free(unique_vals);
     free(counts);
     return 1 - sum_freq_squared;

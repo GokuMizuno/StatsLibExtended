@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <stdbool.h>
+#include "association.h"
 
 bool check_arrays(double *x, double *y, int len) {
     if (len <= 0) return true;
@@ -62,7 +59,7 @@ double chatterjeexi(double *x, double *y, int len) {
 
     double *_x, *_y;
     int new_len;
-    prep_arrays(x, y, &_x, &_y, &new_len);
+    prep_arrays(x, y, &_x, &_y, &new_len, len);
 
     int *y_counts = (int *)calloc(new_len, sizeof(int));
     double *y_forward_ordered = (double *)malloc(new_len * sizeof(double));
@@ -134,7 +131,7 @@ double concordance_corrcoef(double *x, double *y, int len) {
 
     double *_x, *_y;
     int new_len;
-    prep_arrays(x, y, &_x, &_y, &new_len);
+    prep_arrays(x, y, &_x, &_y, &new_len, len);
 
     double mean_x = 0, mean_y = 0, std_x = 0, std_y = 0;
 
@@ -274,17 +271,12 @@ double tukey_correlation(double *x, double *y, size_t n) {
     return result;
 }
 
-int check_arrays(double *x, double *y, int n) {
-    // Implement the check for arrays (e.g., check if they are of the same length)
-    return 0; // Placeholder return value
-}
-
 double gaussian_rank_correlation(double *x, double *y, int n) {
     if (check_arrays(x, y, n)) {
         return NAN;
     }
-    prep_arrays(x, y, n);
-    
+    //prep_arrays(x, y, n);
+
     double norm_factor = 1.0 / (n + 1);
     double *x_ranks_norm = (double *)malloc(n * sizeof(double));
     double *y_ranks_norm = (double *)malloc(n * sizeof(double));

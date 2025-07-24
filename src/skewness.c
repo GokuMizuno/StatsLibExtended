@@ -1,16 +1,16 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <float.h>
+#include "skewness.h"
+#include "central_tendency.h"
 
-double half_sample_mode(double *x, size_t n);
+double compare(double *a, double *b) {
+    return (*a - *b);
+}
 
 double l_skew(double *x, size_t n) {
     double *_x = malloc(n * sizeof(double));
     for (size_t i = 0; i < n; i++) {
         _x[i] = x[i];
     }
-    qsort(_x, n, sizeof(double), compare_doubles);
+    qsort(_x, n, sizeof(double), compare);
     
     double common[3];
     for (size_t i = 0; i < 3; i++) {

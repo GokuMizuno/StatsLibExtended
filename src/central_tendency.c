@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <float.h>
+#include "central_tendency.h"
 
 double mean(double* x, int n) {
     double sum = 0.0;
